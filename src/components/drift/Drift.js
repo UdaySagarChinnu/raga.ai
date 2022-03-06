@@ -4,11 +4,11 @@ import { Gauge } from '@ant-design/plots';
 
 const Drift = () => {
   const config = {
-    percent: 0.75,
+    percent: 1,
     radius: 80,
     range: {
       color: '#30BF78',
-      width: 1,
+      width: 8,
     },
     indicator: {
       pointer: {

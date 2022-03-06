@@ -5,35 +5,35 @@ import { Column } from '@ant-design/plots';
 const Plot = () => {
   const data = [
     {
-      type: '1-3秒',
+      type: '10',
       value: 0.16,
     },
     {
-      type: '4-10秒',
+      type: '20',
       value: 0.125,
     },
     {
-      type: '11-30秒',
+      type: '30',
       value: 0.24,
     },
     {
-      type: '31-60秒',
+      type: '40',
       value: 0.19,
     },
     {
-      type: '1-3分',
+      type: '50',
       value: 0.22,
     },
     {
-      type: '3-10分',
+      type: '60',
       value: 0.05,
     },
     {
-      type: '10-30分',
+      type: '70',
       value: 0.01,
     },
     {
-      type: '30+分',
+      type: '80',
       value: 0.015,
     },
   ];

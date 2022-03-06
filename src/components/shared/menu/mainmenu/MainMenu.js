@@ -5,17 +5,16 @@ function MainMenu(){
         <>
             <Nav className="justify-content-end">
                 <Nav.Item>
-                    <Nav.Link href="/">Section1</Nav.Link>
+                    <Nav.Link href="/">Page1</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link >Link1</Nav.Link>
+                    <Nav.Link href="/IssueMessage">Page2</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link >Link2</Nav.Link>
+                    <Nav.Link>Page3</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link>Link3
-                    </Nav.Link>
+                    <Nav.Link>Page4</Nav.Link>
                 </Nav.Item>
             </Nav>
         </>

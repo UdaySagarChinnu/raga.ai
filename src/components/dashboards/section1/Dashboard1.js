@@ -1,28 +1,63 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect,useCallback } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Overlay from "react-bootstrap/Overlay";
-import Table from "react-bootstrap/Table";
-import CircularProgressBar from '../../circularprogressbar/CircularProgressBar';
-import Plot from '../../plot/Plot';
-import Drift from '../../drift/Drift.js';
+import CircularProgressBar from "../../circularprogressbar/CircularProgressBar";
+import Plot from "../../plot/Plot";
+import Drift from "../../drift/Drift.js";
+import DragSortingTable from '../../table/DragSortingTable';
+import {StyledCommon} from '../../shared/common/Common';
+import {GetAccurancy} from '../../../services/Service';
 
 function Dashboard1() {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  
+  const [accu,setAccurancy] = useState([]);
+
+  const data = [
+    {
+      key: "1",
+      firstName: "John",
+      lastName: "Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: ["nice", "developer"],
+    },
+    {
+      key: "2",
+      firstName: "Jim",
+      lastName: "Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: ["loser"],
+    },
+    {
+      key: "3",
+      firstName: "Joe",
+      lastName: "Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: ["cool", "teacher"],
+    },
+  ];
+  const fetchData = useCallback(async()=>{
+    return 
+    
+  })
+
   return (
     <>
+    <StyledCommon.AppWrapper>
       <Row>
         <Col>
           <Row>
-           
             <Col xs={12} sm={12} md={12}>
               <Row>
-              <Col xs={12} sm={12} md={1}></Col>
+                <Col xs={12} sm={12} md={1}></Col>
                 <Col xs={12} sm={12} md={2}>
+               
                   <Form.Select aria-label="Default select example">
                     <option>View</option>
                     <option value="1">New</option>
@@ -80,11 +115,11 @@ function Dashboard1() {
                       />
                     )}
                   </Overlay>
-                  <i class="bi bi-funnel-fill"></i>
+                  <i className="bi bi-funnel-fill"></i>
                 </Col>
               </Row>
               <Row>
-              <Col xs={12} sm={12} md={1}></Col>
+                <Col xs={12} sm={12} md={1}></Col>
                 <Col xs={12} sm={12} md={2}></Col>
                 <Col xs={12} sm={12} md={2}></Col>
                 <Col xs={12} sm={12} md={2}>
@@ -105,10 +140,13 @@ function Dashboard1() {
                   />
                 </Col>
               </Row>
-              <Row style={{marginTop:'60px'}}>
-              <Col xs={12} sm={12} md={1}></Col>
-                <Col xs={12} sm={12} md={7}>
-                  <Table responsive style={{textAlign:'center'}}>
+              <Row>
+                <Col></Col>
+              </Row>
+              <Row style={{ marginTop: "60px" }}>
+                <Col xs={12} sm={12} md={2}></Col>
+                <Col xs={12} sm={12} md={8}>
+                  {/* <Table  condenced style={{textAlign:'center'}}>
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -190,16 +228,58 @@ function Dashboard1() {
                         <td style={{height:'80px'}}><Plot /></td>
                       </tr>
                     </tbody>
-                  </Table>
+                  </Table> */}
+                  {/* <Table dataSource={data}>
+                    <ColumnGroup title="Name">
+                      <Column
+                        title="First Name"
+                        dataIndex="firstName"
+                        key="firstName"
+                      />
+                      <Column
+                        title="Last Name"
+                        dataIndex="lastName"
+                        key="lastName"
+                      />
+                    </ColumnGroup>
+                    <Column title="Age" dataIndex="age" key="age" />
+                    <Column title="Address" dataIndex="address" key="address" />
+                    <Column
+                      title="Tags"
+                      dataIndex="tags"
+                      key="tags"
+                      render={(tags) => (
+                        <>
+                          {tags.map((tag) => (
+                            <Tag color="blue" key={tag}>
+                              {tag}
+                            </Tag>
+                          ))}
+                        </>
+                      )}
+                    />
+                    <Column
+                      title="Action"
+                      key="action"
+                      render={(text, record) => (
+                        <Space size="middle">
+                          <a>Invite {record.lastName}</a>
+                          <a>Delete</a>
+                        </Space>
+                      )}
+                    />
+                  </Table> */}
+                  <DragSortingTable/>
                 </Col>
-                <Col className="p-5" xs={12} sm={12} md={3}>
-                        <CircularProgressBar />
+                <Col className="p-5" xs={12} sm={12} md={1}>
+                  {/* <CircularProgressBar /> */}
                 </Col>
               </Row>
             </Col>
           </Row>
         </Col>
       </Row>
+      </StyledCommon.AppWrapper>
     </>
   );
 }

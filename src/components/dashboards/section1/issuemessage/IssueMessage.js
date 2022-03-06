@@ -3,15 +3,28 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Overlay from "react-bootstrap/Overlay";
-import Table from "react-bootstrap/Table";
 import { WarningFilled, PlusCircleOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import CircularProgressBar from "../../../circularprogressbar/CircularProgressBar";
 import PerformanceChart from '../../../performancechart/PerformanceChart';
+import DualLineGraph from '../../../duallinegraph/DualLineGraph';
+import ImageBrowser from '../../../imagebrowser/ImageBrowser';
+import ModalPopup from '../../../modalpopup/ModalPopup';
+import VideoPlayer from '../../../videoplayer/VideoPlayer';
+
+
 
 function IssueMessage() {
+
+  const [show,setShow] = useState(false);
+
+
+
+
+  const onHide = ()=>{
+    setShow(false);
+  }
+
   return (
     <>
       <Row>
@@ -226,14 +239,73 @@ function IssueMessage() {
               </Row>
 
               <Row className="mb-3 mt-3">
-                  <Col md={6}></Col>
-                  <Col md={5} style={{border:'1px solid lightgrey',borderRadius:'5px'}}>
+                  <Col xs={12} sm={12} md={6}>
+                     
+                    </Col>
+                  <Col xs={12} sm={12} md={5} style={{border:'1px solid lightgrey',borderRadius:'5px'}}>
                       <h5>Classifier Performance</h5>
                       <PerformanceChart/>
                   </Col>
               </Row>
-              
-              
+            </Col>
+          </Row>
+          <Row className="mt-5">
+            <Col xs={12} sm={12} md={12}>
+                    <Row>
+                      <Col xs={12} sm={12} md={1}></Col>
+                        <Col xs={12} sm={12} md={3}>
+                          <Form.Select aria-label="Default select example">
+                            <option>Issue Configuration</option>
+                            <option value="1">Configuration 1</option>
+                            <option value="2">Configuration 2</option>
+                            <option value="3">Configuration 3</option>
+                            <option value="4">Configuration 4</option>
+                        </Form.Select>
+                        </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12} sm={12} md={1}></Col>
+                      <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
+                          <DualLineGraph />
+                          
+                      </Col>
+                      <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
+                          <DualLineGraph />
+                      </Col>
+                      <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
+                          <DualLineGraph />
+                      </Col>
+                    </Row>
+                    <Row className="mt-4 mb-5">
+                       <Col xs={12} sm={12} md={2}></Col>
+                        <Col xs={12} sm={12} md={3} >
+                          <Form.Range  className="mt-5"></Form.Range>
+                        </Col>
+                    </Row>
+                    <Row className="mt-4 mb-5">
+                       <Col xs={12} sm={12} md={1}></Col>
+                        <Col xs={12} sm={12} md={5}>
+                              <ImageBrowser/>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <Row>
+                            <Col>
+                              <Form.Select aria-label="Default select example">
+                                  <option>Video Length</option>
+                                  <option value="1">10 Sec</option>
+                                  <option value="2">30 Sec</option>
+                                  <option value="3">1 Min</option>
+                              </Form.Select>
+                            </Col>
+                          </Row>
+                          <Row className="text-center">
+                            <Col>
+                               <Button variant="secondary" onClick={() => setShow(true)}  className="mt-3">Play Video</Button>
+                            </Col>
+                          </Row>
+                              <ModalPopup show={show} onHide={onHide} pop={<VideoPlayer/>}/>
+                        </Col>
+                    </Row>
             </Col>
           </Row>
         </Col>
