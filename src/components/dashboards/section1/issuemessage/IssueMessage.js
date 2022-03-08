@@ -11,13 +11,24 @@ import DualLineGraph from '../../../duallinegraph/DualLineGraph';
 import ImageBrowser from '../../../imagebrowser/ImageBrowser';
 import ModalPopup from '../../../modalpopup/ModalPopup';
 import VideoPlayer from '../../../videoplayer/VideoPlayer';
-
+import Matrix from '../../../confusionmatrix/ConfusionMatrix';
 
 
 function IssueMessage() {
 
   const [show,setShow] = useState(false);
 
+  const confusionMatrix = [
+    [0.69, 0.02, 0.04, 0.06, 0.01, 0.14, 0.04],
+    [0.03, 0.70, 0.06, 0.02, 0.07, 0.06, 0.06],
+    [0.04, 0.06, 0.66, 0.02, 0.05, 0.06, 0.11],
+    [0.02, 0.02, 0.18, 0.51, 0.09, 0.12, 0.06],
+    [0.04, 0.08, 0.01, 0.02, 0.80, 0.03, 0.02],
+    [0.07, 0.06, 0.03, 0.07, 0.02, 0.67, 0.08],
+    [0.11, 0.06, 0.07, 0.05, 0.07, 0.06, 0.58]
+  ];
+
+  const labels = ['Class A', 'Class B', 'Class C', 'Class D', 'Class E', 'Class F', 'Class G'];
 
 
 
@@ -240,7 +251,7 @@ function IssueMessage() {
 
               <Row className="mb-3 mt-3">
                   <Col xs={12} sm={12} md={6}>
-                     
+                      <Matrix  data={confusionMatrix} labels={labels}/>
                     </Col>
                   <Col xs={12} sm={12} md={5} style={{border:'1px solid lightgrey',borderRadius:'5px'}}>
                       <h5>Classifier Performance</h5>
