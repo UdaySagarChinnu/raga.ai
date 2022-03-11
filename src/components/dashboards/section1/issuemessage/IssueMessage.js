@@ -7,10 +7,10 @@ import { WarningFilled, PlusCircleOutlined } from "@ant-design/icons";
 import Card from "react-bootstrap/Card";
 import CircularProgressBar from "../../../circularprogressbar/CircularProgressBar";
 import PerformanceChart from '../../../performancechart/PerformanceChart';
-import  DualLineGraph from '../../../duallinegraph/DualLineGraph';
-import  DualLineGraph1  from '../../../duallinegraph/DualLineGraph';
-import  DualLineGraph2  from '../../../duallinegraph/DualLineGraph';
-import  ThirdGraph  from '../../../thirdGraph/ThirdGraph';
+import  FirstGraph from '../../../gragh1/FirstGraph';
+import  SecondGraph  from '../../../graph2/SecondGraph';
+//import  DualLineGraph2  from '../../../gragh1/FirstGraph';
+import  ThirdGraph  from '../../../graph3/ThirdGraph';
 
 import ImageBrowser from '../../../imagebrowser/ImageBrowser';
 import ModalPopup from '../../../modalpopup/ModalPopup';
@@ -39,28 +39,21 @@ function IssueMessage() {
   const [confusionMatrixData,setConfusionMatrix] = useState({})
   const [frame,setFrameCount] = useState([])
   const [labe,setLabelCount] = useState([])
-  const [anamoly,setAnamoly] = useState([])
+  const [anamol,setAnamoly] = useState([])
 
   const onHide = ()=>{
     setShow(false);
   }
 
   useEffect(async()=>{
-    // let data = [] ;
-    //  axios.get("http://localhost:3000/api/getModelData")
-    // .then((res) => {
-    //   data = res.data.response[0];
-    //   setMainData(data);
-    // })
-    let i=0;
-     let mainData = await GetMainTableData("yolov1");
-     setMainData(mainData);
+    let mainData = await GetMainTableData("yolov1");
+    setMainData(mainData);
     let frameCount = await GetFrameCount("yolov1");
     setFrameCount(frameCount);
-    let labelCount = await GetLabelCount("yolov1");
-    setLabelCount(labelCount);
-    let anamolycount = await GetAnamolyCount("yolov1");
-    setAnamoly(anamolycount);
+    // let labelCount = await GetLabelCount("yolov1");
+    // setLabelCount(labelCount);
+    // let anamolycount = await GetAnamolyCount("yolov1");
+    // setAnamoly(anamolycount);
   },[])
 
   return (
@@ -90,16 +83,16 @@ function IssueMessage() {
                         textAlign: "center",
                       }}
                     />
-                    <h6>
+                    <b>
                       <a href="#">Rules</a>
-                    </h6>
+                    </b>
                   </div>
                 </Col>
                 <Col xs={12} sm={12} md={8}>
-                  <h6>
+                  <b>
                     1) The False Positive is higher than 40% in the following
                     usecases
-                  </h6>
+                  </b>
                   <Row>
                     <Col md={6}>
                       <p>Configuration 1</p>
@@ -109,10 +102,10 @@ function IssueMessage() {
                       <PlusCircleOutlined style={{ fontSize: "20px" }} />
                     </Col>
                   </Row>
-                  <h6>
+                  <b>
                     2) The False Negative is higher than 40% in the following
                     usecases
-                  </h6>
+                  </b>
                   <Row>
                     <Col md={6}>
                       <p>Configuration 1</p>
@@ -143,16 +136,16 @@ function IssueMessage() {
                     <WarningFilled
                       style={{ fontSize: "48px", color: "#D09905" }}
                     />
-                    <h6>
+                    <b>
                       <a href="#">Rules</a>
-                    </h6>
+                    </b>
                   </div>
                 </Col>
                 <Col xs={12} sm={12} md={10}>
-                  <h6>
+                  <b>
                     1) The False Positive is higher than 40% in the following
                     usecases
-                  </h6>
+                  </b>
                   <Row>
                     <Col md={6}>
                       <p>Configuration 1</p>
@@ -162,10 +155,10 @@ function IssueMessage() {
                       <PlusCircleOutlined style={{ fontSize: "20px" }} />
                     </Col>
                   </Row>
-                  <h6>
+                  <b>
                     2) The False Negative is higher than 40% in the following
                     usecases
-                  </h6>
+                  </b>
                   <Row>
                     <Col md={6}>
                       <p>Configuration 1</p>
@@ -220,7 +213,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div  style={{height:'120px'}}>
                         <h2>9</h2>
-                        <h6>Number of classes</h6>
+                        <b>Number of classes</b>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -232,7 +225,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div style={{height:'120px'}}>
                       <h2>1</h2>
-                        <h5>Number of frames</h5>
+                        <b>Number of frames</b>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -244,7 +237,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div style={{height:'120px'}}>
                       <h2>64,714</h2>
-                        <h5>Number of dettections</h5>
+                      <b>Number of dettections</b>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -256,7 +249,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div style={{height:'120px'}}>
                         <h2>1</h2>
-                        <h5>Number of instance</h5>
+                        <b>Number of instance</b>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -282,7 +275,7 @@ function IssueMessage() {
                       <Matrix  data={confusionMatrix} labels={labels}/>
                     </Col>
                   <Col xs={12} sm={12} md={5} style={{border:'1px solid lightgrey',borderRadius:'5px'}}>
-                      <h5>Classifier Performance</h5>
+                  <b>Classifier Performance</b>
                       <Row>
                         <Col>  </Col>
                       </Row>
@@ -308,19 +301,16 @@ function IssueMessage() {
                     <Row>
                       <Col xs={12} sm={12} md={1}></Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                          <DualLineGraph data={frame} Date={"capture_date"} scales={"capture_time"}/>
+                          <FirstGraph data={frame} capture_date={"capture_date"} scales={"capture_time"}/>
                           Frame Count
                       </Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                          {/* <DualLineGraph data={labe} Date={"capture_date"} scales={"capture_time"}/> */}
-                          <DualLineGraph1 data={labe} Date={"capture_date"} scales={"type"} />
+                          <SecondGraph />
                           Label Count
                       </Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                         123
-                          {/* <DualLineGraph2 data={anamoly} Date={"capture_date"} anomoly={"anomoly"}/>  */}
-
                           <ThirdGraph />
+                          Anomoly Count
                       </Col>
                     </Row>
                     <Row className="mt-4 mb-5">

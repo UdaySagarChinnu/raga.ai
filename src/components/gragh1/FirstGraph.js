@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Line, DualAxes } from '@ant-design/plots';
+import { Line } from '@ant-design/plots';
 
 const DualLineGraph = (props)=>{
   
-    const [data,setData] = useState([])
+  const [data,setData] = useState([])
    
   useEffect(()=>{
     setData(props.data)
@@ -13,7 +12,7 @@ const DualLineGraph = (props)=>{
   const config = {
     data,
     padding: 'auto',
-    xField: props.Date,
+    xField: props.capture_date,
     yField: props.scales,
     xAxis: {
       tickCount: 5,
