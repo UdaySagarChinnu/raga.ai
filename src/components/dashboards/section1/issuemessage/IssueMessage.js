@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,12 +7,17 @@ import { WarningFilled, PlusCircleOutlined } from "@ant-design/icons";
 import Card from "react-bootstrap/Card";
 import CircularProgressBar from "../../../circularprogressbar/CircularProgressBar";
 import PerformanceChart from '../../../performancechart/PerformanceChart';
-import DualLineGraph from '../../../duallinegraph/DualLineGraph';
+import  DualLineGraph from '../../../duallinegraph/DualLineGraph';
+import  DualLineGraph1  from '../../../duallinegraph/DualLineGraph';
+import  DualLineGraph2  from '../../../duallinegraph/DualLineGraph';
+import  ThirdGraph  from '../../../thirdGraph/ThirdGraph';
+
 import ImageBrowser from '../../../imagebrowser/ImageBrowser';
 import ModalPopup from '../../../modalpopup/ModalPopup';
 import VideoPlayer from '../../../videoplayer/VideoPlayer';
 import Matrix from '../../../confusionmatrix/ConfusionMatrix';
-
+import axios from 'axios';
+import {GetMainTableData,GetFrameCount,GetLabelCount,GetAnamolyCount} from "../../../../services/Service"
 
 function IssueMessage() {
 
@@ -30,11 +35,33 @@ function IssueMessage() {
 
   const labels = ['Class A', 'Class B', 'Class C', 'Class D', 'Class E', 'Class F', 'Class G'];
 
-
+  const [maindata,setMainData] = useState({})
+  const [confusionMatrixData,setConfusionMatrix] = useState({})
+  const [frame,setFrameCount] = useState([])
+  const [labe,setLabelCount] = useState([])
+  const [anamoly,setAnamoly] = useState([])
 
   const onHide = ()=>{
     setShow(false);
   }
+
+  useEffect(async()=>{
+    // let data = [] ;
+    //  axios.get("http://localhost:3000/api/getModelData")
+    // .then((res) => {
+    //   data = res.data.response[0];
+    //   setMainData(data);
+    // })
+    let i=0;
+     let mainData = await GetMainTableData("yolov1");
+     setMainData(mainData);
+    let frameCount = await GetFrameCount("yolov1");
+    setFrameCount(frameCount);
+    let labelCount = await GetLabelCount("yolov1");
+    setLabelCount(labelCount);
+    let anamolycount = await GetAnamolyCount("yolov1");
+    setAnamoly(anamolycount);
+  },[])
 
   return (
     <>
@@ -193,7 +220,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div  style={{height:'120px'}}>
                         <h2>9</h2>
-                        <p>Number of classes</p>
+                        <h6>Number of classes</h6>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -205,7 +232,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div style={{height:'120px'}}>
                       <h2>1</h2>
-                        <p>Number of frames</p>
+                        <h5>Number of frames</h5>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -217,7 +244,7 @@ function IssueMessage() {
                       <Card.Text>
                       <div style={{height:'120px'}}>
                       <h2>64,714</h2>
-                        <p>Number of dettections</p>
+                        <h5>Number of dettections</h5>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -228,8 +255,8 @@ function IssueMessage() {
                     <Card.Body>
                       <Card.Text>
                       <div style={{height:'120px'}}>
-                      <h2>1</h2>
-                        <p>Number of instance</p>
+                        <h2>1</h2>
+                        <h5>Number of instance</h5>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -250,12 +277,16 @@ function IssueMessage() {
               </Row>
 
               <Row className="mb-3 mt-3">
-                  <Col xs={12} sm={12} md={6}>
+              <Col xs={12} sm={12} md={1}></Col>
+                  <Col xs={12} sm={12} md={5}>
                       <Matrix  data={confusionMatrix} labels={labels}/>
                     </Col>
                   <Col xs={12} sm={12} md={5} style={{border:'1px solid lightgrey',borderRadius:'5px'}}>
                       <h5>Classifier Performance</h5>
-                      <PerformanceChart/>
+                      <Row>
+                        <Col>  </Col>
+                      </Row>
+                      <PerformanceChart maindata={maindata}/>
                   </Col>
               </Row>
             </Col>
@@ -277,14 +308,19 @@ function IssueMessage() {
                     <Row>
                       <Col xs={12} sm={12} md={1}></Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                          <DualLineGraph />
-                          
+                          <DualLineGraph data={frame} Date={"capture_date"} scales={"capture_time"}/>
+                          Frame Count
                       </Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                          <DualLineGraph />
+                          {/* <DualLineGraph data={labe} Date={"capture_date"} scales={"capture_time"}/> */}
+                          <DualLineGraph1 data={labe} Date={"capture_date"} scales={"type"} />
+                          Label Count
                       </Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
-                          <DualLineGraph />
+                         123
+                          {/* <DualLineGraph2 data={anamoly} Date={"capture_date"} anomoly={"anomoly"}/>  */}
+
+                          <ThirdGraph />
                       </Col>
                     </Row>
                     <Row className="mt-4 mb-5">

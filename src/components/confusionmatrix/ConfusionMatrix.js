@@ -16,6 +16,7 @@ function Matrix(){
     <StyledCommon.AppWrapper>
         <Table responsive className="noborder">
             <thead className="noborder">
+            <tr>
                 <th className="noborder">bicycle</th>
                 <th className="noborder">bus</th>
                 <th className="noborder">car</th>
@@ -23,11 +24,12 @@ function Matrix(){
                 <th className="noborder">none</th>
                 <th className="noborder">person</th>
                 <th className="noborder">truck</th>
+                </tr>
             </thead>
             <tbody>
                 {
-                    data.map((item)=>{
-                      return (  <tr>
+                    data.map((item,index)=>{
+                      return (  <tr key={index}>
                             <td>{item.bicycle}</td>
                             <td>{item.bus}</td>
                             <td>{item.car}</td>

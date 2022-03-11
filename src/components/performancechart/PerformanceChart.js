@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Column } from '@ant-design/plots';
 
-const PerformanceChart = () => {
+const PerformanceChart = (props) => {
     const data = [
         {
           type: 'S2-Precision',
-          value: 0.8,
+          value: props.maindata.precision,
         },
         {
           type: 'S2-Recall',
-          value: 0.65,
+          value: props.maindata.recall,
         },
         {
           type: 'S2-Accurancy',
-          value: 0.55,
+          value: props.maindata.confidence,
         },
         {
           type: 'S2-F1 Score',
-          value: 0.75,
+          value: props.maindata.iou,
         },
         {
           type: 'S2-Specificity',
@@ -26,7 +26,7 @@ const PerformanceChart = () => {
         },
         {
           type: 'S2-Youden Index',
-          value: -0.3,
+          value: props.maindata.infer_time,
         },
         
       ];
