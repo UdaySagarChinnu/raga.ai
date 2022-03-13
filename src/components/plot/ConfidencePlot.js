@@ -2,47 +2,43 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Column } from '@ant-design/plots';
 
-const Plot = () => {
-  const data = [
+const ConfidencePlot = (props) => {
+  const [data,setData] = useState([])
+  let data1 = [
     {
-      type: '10',
-      value: 0.16,
-    },
-    {
-      type: '20',
-      value: 0.125,
-    },
-    {
-      type: '30',
-      value: 0.24,
-    },
-    {
-      type: '40',
-      value: 0.19,
-    },
-    {
-      type: '50',
-      value: 0.22,
-    },
-    {
-      type: '60',
-      value: 0.05,
-    },
-    {
-      type: '70',
-      value: 0.01,
-    },
-    {
-      type: '80',
-      value: 0.015,
-    },
+      type: '',
+      value: 0,
+    }
   ];
+  let count = 0;
   const paletteSemanticRed = '#F4664A';
   const brandColor = '#5B8FF9';
-
+  const InitialLoad = ()=>{
+    console.log(props.confidenceData);
+    let values = { type: "",value: ""};
+    let draftData = [];
+    let i = 0;
+    props.confidenceData.map((item)=>{
+      console.log("I am Item",item)
+      if(i==0){
+        values.type= 10;
+      }
+      else{
+        values.type= i+10;
+      }
+      
+      values.value=item;
+    })
+    console.log("Confidence IN",props.confidenceData);
+    setData(props.confidenceData);
+  }
   useEffect(()=>{
-    console.log("inside plot");
-    console.log(props);
+    if(count == 0){
+      InitialLoad();
+      count++;
+    }
+    
+   
   },[])
   const config = {
     data,
@@ -77,4 +73,4 @@ const Plot = () => {
   return <Column {...config} />;
 };
 
-export default Plot;
+export default ConfidencePlot;

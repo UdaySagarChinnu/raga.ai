@@ -6,7 +6,7 @@ export const GetAccurancy = (key) => {
    return axios.get(globalUri+"getAccuracy?model="+key).then((data)=>{
         if(data.data != null){
            // message.success('This is a success message');
-           var result = data.data.response;
+           var result = data.data.response[0];
            return result;
         }
     })
@@ -14,6 +14,58 @@ export const GetAccurancy = (key) => {
         message.error(error.message);
     })
 }
+
+export const GetRecall = (key) => {
+    return axios.get(globalUri+"getRecall?model="+key).then((data)=>{
+         if(data.data != null){
+            // message.success('This is a success message');
+            var result = data.data.response[0];
+            return result;
+         }
+     })
+     .catch((error)=>{
+         message.error(error.message);
+     })
+ }
+
+ export const GetF1Score = (key) => {
+    return axios.get(globalUri+"getF1Score?model="+key).then((data)=>{
+         if(data.data != null){
+            // message.success('This is a success message');
+            var result = data.data.response[0];
+            return result;
+         }
+     })
+     .catch((error)=>{
+         message.error(error.message);
+     })
+ }
+
+ export const GetSpecificity = (key) => {
+    return axios.get(globalUri+"getSpecificity?model="+key).then((data)=>{
+         if(data.data != null){
+            // message.success('This is a success message');
+            var result = data.data.response[0];
+            return result;
+         }
+     })
+     .catch((error)=>{
+         message.error(error.message);
+     })
+ }
+
+ export const GetYoudenIndex = (key) => {
+    return axios.get(globalUri+"getYoudenIndex?model="+key).then((data)=>{
+         if(data.data != null){
+            // message.success('This is a success message');
+            var result = data.data.response[0];
+            return result;
+         }
+     })
+     .catch((error)=>{
+         message.error(error.message);
+     })
+ }
 
 
 export const GetMainTableData = (key) => {
@@ -63,6 +115,18 @@ export const GetAnamolyCount = (key) => {
         return data;
     })
    
+    .catch((error)=>{
+        message.error(error.message);
+    })
+}
+
+export const GetSummary = (key) => {
+    let data = [] ;
+    return axios.get(globalUri+"plotSummaryGraph")
+    .then((res) => {
+        data = res.data.response;
+        return data;
+    })
     .catch((error)=>{
         message.error(error.message);
     })

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Column } from '@ant-design/plots';
 
-const Plot = () => {
+const DataDriftPlot = (props) => {
   const data = [
     {
       type: '10',
@@ -41,7 +41,7 @@ const Plot = () => {
   const brandColor = '#5B8FF9';
 
   useEffect(()=>{
-    console.log("inside plot");
+    console.log("inside Drift plot");
     console.log(props);
   },[])
   const config = {
@@ -77,4 +77,4 @@ const Plot = () => {
   return <Column {...config} />;
 };
 
-export default Plot;
+export default DataDriftPlot;

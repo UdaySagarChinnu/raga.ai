@@ -4,17 +4,19 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Overlay from "react-bootstrap/Overlay";
-import CircularProgressBar from "../../circularprogressbar/CircularProgressBar";
-import Plot from "../../plot/Plot";
-import Drift from "../../drift/Drift.js";
+// import CircularProgressBar from "../../circularprogressbar/CircularProgressBar";
+// import Plot from "../../plot/ConfidencePlotPlot";
+// import Drift from "../../drift/Drift.js";
 import DragSortingTable from '../../table/DragSortingTable';
 import {StyledCommon} from '../../shared/common/Common';
-import {GetAccurancy} from '../../../services/Service';
+
+
 
 function Dashboard1() {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const [accu,setAccurancy] = useState([]);
+  const [summaryData,setSummaryData] = useState([]);
 
   const data = [
     {
@@ -47,6 +49,9 @@ function Dashboard1() {
     
   })
 
+  useEffect(async ()=>{
+   
+  },[])
   return (
     <>
     <StyledCommon.AppWrapper>
@@ -146,130 +151,7 @@ function Dashboard1() {
               <Row style={{ marginTop: "60px" }}>
                 <Col xs={12} sm={12} md={2}></Col>
                 <Col xs={12} sm={12} md={8}>
-                  {/* <Table  condenced style={{textAlign:'center'}}>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Number of Instances</th>
-                        <th>Overall Health</th>
-                        <th>Drift</th>
-                        <th>Need Retraining</th>
-                        <th>Confidence Score</th>
-                        <th>Inference Time</th>
-                        <th>Up Time/Day</th>
-                        <th>Date Drift</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-1</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-2</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-3</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-4</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-5</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                      <tr >
-                        <td style={{height:'80px'}}>Model-6</td>
-                        <td style={{height:'80px'}}>99.86</td>
-                        <td></td>
-                        <td style={{height:'80px',width:'80px'}}><Drift/></td>
-                        <td></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                        <td style={{height:'80px'}}><Plot /></td>
-                      </tr>
-                    </tbody>
-                  </Table> */}
-                  {/* <Table dataSource={data}>
-                    <ColumnGroup title="Name">
-                      <Column
-                        title="First Name"
-                        dataIndex="firstName"
-                        key="firstName"
-                      />
-                      <Column
-                        title="Last Name"
-                        dataIndex="lastName"
-                        key="lastName"
-                      />
-                    </ColumnGroup>
-                    <Column title="Age" dataIndex="age" key="age" />
-                    <Column title="Address" dataIndex="address" key="address" />
-                    <Column
-                      title="Tags"
-                      dataIndex="tags"
-                      key="tags"
-                      render={(tags) => (
-                        <>
-                          {tags.map((tag) => (
-                            <Tag color="blue" key={tag}>
-                              {tag}
-                            </Tag>
-                          ))}
-                        </>
-                      )}
-                    />
-                    <Column
-                      title="Action"
-                      key="action"
-                      render={(text, record) => (
-                        <Space size="middle">
-                          <a>Invite {record.lastName}</a>
-                          <a>Delete</a>
-                        </Space>
-                      )}
-                    />
-                  </Table> */}
-                  <DragSortingTable/>
+                  <DragSortingTable />
                 </Col>
                 <Col className="p-5" xs={12} sm={12} md={1}>
                   {/* <CircularProgressBar /> */}

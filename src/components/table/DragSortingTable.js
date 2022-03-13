@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import { Table } from "antd";
@@ -6,7 +6,11 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
 import Drift from "../drift/Drift";
-import Plot from "../plot/Plot";
+import ConfidencePlot from "../plot/ConfidencePlot";
+import InferTimePlot from "../plot/InferTimePlot";
+import DataDriftPlot from "../plot/DataDriftPlot"
+import UptimePlot from "../plot/UptimePlot"
+import { GetSummary } from "../../services/Service";
 
 const type = "DraggableBodyRow";
 
@@ -56,19 +60,19 @@ const DraggableBodyRow = ({
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name"
+    title: "Model",
+    dataIndex: "model",
+    key: "model"
   },
   {
     title: "Number of Instances",
-    dataIndex: "numberOfInstances",
-    key: "numberOfInstances"
+    dataIndex: "num_instances",
+    key: "num_instances"
   },
   {
     title: "Overall Health",
-    dataIndex: "overallHealth",
-    key: "overallHealth"
+    dataIndex: "health",
+    key: "health"
   },
   {
     title: "Drift",
@@ -77,108 +81,34 @@ const columns = [
   },
   {
     title: "Need Retrainng",
-    dataIndex: "needRetrainng",
-    key: "needRetrainng"
+    dataIndex: "needs_training",
+    key: "needs_training"
   },
   {
     title: "Confidence Score",
-    dataIndex: "confidenceScore",
-    key: "confidenceScore"
+    dataIndex: "confidence",
+    key: "confidence"
   },
   {
     title: "Inference Time",
-    dataIndex: "inferenceTime",
-    key: "inferenceTime"
+    dataIndex: "infer_time",
+    key: "infer_time"
   },
   {
     title: "Up Time/Day",
-    dataIndex: "upTimeDay",
-    key: "upTimeDay"
+    dataIndex: "uptime",
+    key: "uptime"
   },
   {
     title: "Data Drift",
-    dataIndex: "dataDrift",
-    key: "dataDrift"
+    dataIndex: "data_drift",
+    key: "data_drift"
   },
 ];
 
 const DragSortingTable = () => {
-  const [data, setData] = useState([
-    {
-      key: "1",
-      name: "Modal 1",
-      numberOfInstances: 32,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    },
-    {
-      key: "2",
-      name: "Modal 2",
-      numberOfInstances: 33,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    },
-    {
-      key: "3",
-      name: "Modal 3",
-      numberOfInstances: 34,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    },
-    {
-      key: "4",
-      name: "Modal 4",
-      numberOfInstances: 35,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    },
-    {
-      key: "5",
-      name: "Modal 5",
-      numberOfInstances: 36,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    },
-    {
-      key: "6",
-      name: "Modal 6",
-      numberOfInstances: 37,
-      overallHealth: "New York No. 1 Lake Park",
-      drift:<Drift/>,
-      needRetraining:"",
-      confidenceScore:<Plot/>,
-      inferenceTime:<Plot/>,
-      upTimeDay:<Plot/>,
-      dataDrift:<Plot/>
-    }
-    
-  ]);
-
+  const [data, setData] = useState([]);
+  let draft = [];
   const components = {
     body: {
       row: DraggableBodyRow
@@ -199,6 +129,62 @@ const DragSortingTable = () => {
     },
     [data]
   );
+let count = 0;
+const InitialLoad= async ()=>{
+  var summary = await GetSummary();
+  console.log("inside dashboard")
+    console.log(summary);
+   
+    console.log("drag table");
+    console.log("summary",summary);
+  
+    let values = {
+      model: "1",
+      num_instances:"",
+      health: 32,
+      drift:"",
+      needs_training: "",
+      confidence:"",
+      data_drift:"",
+      infer_time:"",
+      uptime:""
+    }
+   const newarray = summary.map((item,index)=>{
+      values.key = index
+      console.log("Inside DragSort",item);
+      item.confidence =  item.confidence.split(",");
+      values.model = item.model;
+      values.num_instances = item.num_instances;
+      values.health = item.health;
+      values.drift = <Drift driftData={item.drift}/>;
+      values.needs_training = item.needs_training;
+      values.confidence = <ConfidencePlot confidenceData={item.confidence}/>;
+      values.data_drift = <DataDriftPlot dataDriftData={item.data_drift}/>;
+      values.infer_time = <InferTimePlot infer_timeData={item.infer_time}/>;
+      values.uptime = <UptimePlot uptimeData={item.uptime}/>;
+
+      return values;
+      
+    })
+
+    console.log("newarray",newarray);
+
+    console.log("after dataarray",draft)
+    setData(draft);
+    console.log("data",data);
+}
+
+const dataFormate = ()=>{
+  InitialLoad()
+
+}
+
+  useEffect(async()=>{
+    if(count == 0){
+      InitialLoad();
+      count++;
+    }
+  },[])
 
   return (
     <DndProvider backend={HTML5Backend}>

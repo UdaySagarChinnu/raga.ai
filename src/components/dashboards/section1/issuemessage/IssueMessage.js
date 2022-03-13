@@ -9,7 +9,6 @@ import CircularProgressBar from "../../../circularprogressbar/CircularProgressBa
 import PerformanceChart from '../../../performancechart/PerformanceChart';
 import  FirstGraph from '../../../gragh1/FirstGraph';
 import  SecondGraph  from '../../../graph2/SecondGraph';
-//import  DualLineGraph2  from '../../../gragh1/FirstGraph';
 import  ThirdGraph  from '../../../graph3/ThirdGraph';
 
 import ImageBrowser from '../../../imagebrowser/ImageBrowser';

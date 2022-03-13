@@ -4,7 +4,7 @@ import { Gauge } from '@ant-design/plots';
 
 const Drift = () => {
   const config = {
-    percent: 1,
+    percent: 0.4,
     radius: 80,
     range: {
       color: '#30BF78',
@@ -21,6 +21,7 @@ const Drift = () => {
           stroke: '#D0D0D0',
         },
       },
+
     },
     
   };
