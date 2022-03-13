@@ -4,41 +4,40 @@ import { Column } from '@ant-design/plots';
 
 const ConfidencePlot = (props) => {
   const [data,setData] = useState([])
-  let data1 = [
-    {
-      type: '',
-      value: 0,
-    }
-  ];
+  let data1 = [];
   let count = 0;
   const paletteSemanticRed = '#F4664A';
   const brandColor = '#5B8FF9';
+ 
   const InitialLoad = ()=>{
     console.log(props.confidenceData);
-    let values = { type: "",value: ""};
-    let draftData = [];
+    //let values = { type: "",value: ""};
+    //let draftData = [];
     let i = 0;
-    props.confidenceData.map((item)=>{
-      console.log("I am Item",item)
+    props.confidenceData.forEach((item)=>{
+      let values = { type: "",value: ""};
       if(i==0){
         values.type= 10;
+        i=i+10;
       }
       else{
-        values.type= i+10;
+        i=i+10;
+        values.type= i;
+        
       }
       
       values.value=item;
+
+      data1.push(values);
     })
     console.log("Confidence IN",props.confidenceData);
-    setData(props.confidenceData);
+    setData(data1);
   }
   useEffect(()=>{
     if(count == 0){
       InitialLoad();
       count++;
     }
-    
-   
   },[])
   const config = {
     data,

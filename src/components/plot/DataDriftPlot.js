@@ -3,46 +3,34 @@ import ReactDOM from 'react-dom';
 import { Column } from '@ant-design/plots';
 
 const DataDriftPlot = (props) => {
-  const data = [
-    {
-      type: '10',
-      value: 0.16,
-    },
-    {
-      type: '20',
-      value: 0.125,
-    },
-    {
-      type: '30',
-      value: 0.24,
-    },
-    {
-      type: '40',
-      value: 0.19,
-    },
-    {
-      type: '50',
-      value: 0.22,
-    },
-    {
-      type: '60',
-      value: 0.05,
-    },
-    {
-      type: '70',
-      value: 0.01,
-    },
-    {
-      type: '80',
-      value: 0.015,
-    },
-  ];
+  const data1 = [];
+  const [data,setData] = useState([])
   const paletteSemanticRed = '#F4664A';
   const brandColor = '#5B8FF9';
+  let count = 0;
+  const InitialLoad = ()=>{
+    let i = 0;
+    props.dataDriftData.forEach((item)=>{
+      let values = { type: "",value: ""};
+      if(i==0){
+        values.type= 10;
+        i=i+10;
+      }
+      else{
+        i=i+10;
+        values.type= i;
+      }
+      values.value=item;
+      data1.push(values);
+    })
+    setData(data1);
+  }
 
   useEffect(()=>{
-    console.log("inside Drift plot");
-    console.log(props);
+    if(count == 0){
+        InitialLoad();
+        count++;
+      }
   },[])
   const config = {
     data,

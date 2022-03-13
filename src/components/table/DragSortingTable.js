@@ -138,21 +138,36 @@ const InitialLoad= async ()=>{
     console.log("drag table");
     console.log("summary",summary);
   
-    let values = {
-      model: "1",
-      num_instances:"",
-      health: 32,
-      drift:"",
-      needs_training: "",
-      confidence:"",
-      data_drift:"",
-      infer_time:"",
-      uptime:""
-    }
-   const newarray = summary.map((item,index)=>{
+    // let values = {
+    //   model: "1",
+    //   num_instances:"",
+    //   health: 32,
+    //   drift:"",
+    //   needs_training: "",
+    //   confidence:"",
+    //   data_drift:"",
+    //   infer_time:"",
+    //   uptime:""
+    // }
+    summary.forEach((item,index)=>{
+      let values = {
+        model: "",
+        num_instances:"",
+        health: "",
+        drift:"",
+        needs_training: "",
+        confidence:"",
+        data_drift:"",
+        infer_time:"",
+        uptime:""
+      }
       values.key = index
+
       console.log("Inside DragSort",item);
       item.confidence =  item.confidence.split(",");
+      item.data_drift =  item.data_drift.split(",");
+      item.infer_time =  item.infer_time.split(",");
+      item.uptime =  item.uptime.split(",");
       values.model = item.model;
       values.num_instances = item.num_instances;
       values.health = item.health;
@@ -162,12 +177,10 @@ const InitialLoad= async ()=>{
       values.data_drift = <DataDriftPlot dataDriftData={item.data_drift}/>;
       values.infer_time = <InferTimePlot infer_timeData={item.infer_time}/>;
       values.uptime = <UptimePlot uptimeData={item.uptime}/>;
-
-      return values;
-      
+      draft.push(values)
     })
 
-    console.log("newarray",newarray);
+    //console.log("newarray",newarray);
 
     console.log("after dataarray",draft)
     setData(draft);
