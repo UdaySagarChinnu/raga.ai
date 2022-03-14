@@ -63,7 +63,7 @@ function Dashboard1() {
                 <Col xs={12} sm={12} md={1}></Col>
                 <Col xs={12} sm={12} md={2}>
                
-                  <Form.Select aria-label="Default select example">
+                  <Form.Select aria-label="Default select example" disabled>
                     <option>View</option>
                     <option value="1">New</option>
                     <option value="2">View1</option>
@@ -117,6 +117,7 @@ function Dashboard1() {
                           borderRadius: 3,
                           ...props.style,
                         }}
+                        disabled
                       />
                     )}
                   </Overlay>
@@ -129,11 +130,11 @@ function Dashboard1() {
                 <Col xs={12} sm={12} md={2}></Col>
                 <Col xs={12} sm={12} md={2}>
                   <Form.Label className="mt-2">Start Time Frame</Form.Label>
-                  <Form.Control type="date" placeholder="Enter email" />
+                  <Form.Control type="time" placeholder="" disabled/>
                 </Col>
                 <Col xs={12} sm={12} md={2}>
                   <Form.Label className="mt-2">End Time Frame</Form.Label>
-                  <Form.Control type="date" placeholder="Enter email" />
+                  <Form.Control type="time" placeholder="" disabled/>
                 </Col>
                 <Col xs={12} sm={12} md={1}></Col>
                 <Col xs={12} sm={12} md={2}>
@@ -142,6 +143,7 @@ function Dashboard1() {
                     type="checkbox"
                     id="disable"
                     label="Disable Auto Refresh"
+                    disabled
                   />
                 </Col>
               </Row>

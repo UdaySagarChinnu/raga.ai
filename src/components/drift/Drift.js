@@ -2,23 +2,29 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Gauge } from '@ant-design/plots';
 
-const Drift = () => {
+const Drift = (props) => {
+
+// useEffect(()=>{
+//   props.driftData
+// })
   const config = {
-    percent: 0.4,
+    percent:  props.driftData,
     radius: 80,
     range: {
-      color: '#30BF78',
-      width: 8,
+      ticks: [0, 1 / 3, 2 / 3, 1],
+      color: ['#FAAD14','#30BF78','#F4664A',  ],
     },
     indicator: {
       pointer: {
         style: {
           stroke: '#D0D0D0',
+          fontSize:'8px'
         },
       },
       pin: {
         style: {
           stroke: '#D0D0D0',
+          fontSize:'8px'
         },
       },
 

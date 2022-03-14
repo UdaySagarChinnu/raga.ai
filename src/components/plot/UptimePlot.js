@@ -9,16 +9,19 @@ const UptimePlot = (props) => {
   let count = 0;
   const [data,setData] = useState([])
   const InitialLoad = ()=>{
-    let i = 0;
+    let i = new Date().getDate();
+    i=parseInt(i);
     props.uptimeData.forEach((item)=>{
       let values = { type: "",value: ""};
-      if(i==0){
-        values.type= 10;
-        i=i+10;
+      if(i==14){
+        values.type= 14;
+        i--;
       }
       else{
-        i=i+10;
+        
         values.type= i;
+        i--;
+        
       }
       values.value=item;
       data1.push(values);

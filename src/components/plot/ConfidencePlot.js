@@ -13,16 +13,18 @@ const ConfidencePlot = (props) => {
     console.log(props.confidenceData);
     //let values = { type: "",value: ""};
     //let draftData = [];
-    let i = 0;
+    let i = new Date().getDate();
+    i=parseInt(i);
     props.confidenceData.forEach((item)=>{
       let values = { type: "",value: ""};
-      if(i==0){
-        values.type= 10;
-        i=i+10;
+      if(i==14){
+        values.type= 14;
+        i--;
       }
       else{
-        i=i+10;
+        
         values.type= i;
+        i--;
         
       }
       

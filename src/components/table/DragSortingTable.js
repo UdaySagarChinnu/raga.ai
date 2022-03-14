@@ -11,7 +11,8 @@ import InferTimePlot from "../plot/InferTimePlot";
 import DataDriftPlot from "../plot/DataDriftPlot"
 import UptimePlot from "../plot/UptimePlot"
 import { GetSummary } from "../../services/Service";
-
+import { CloseCircleFilled, CheckCircleFilled } from '@ant-design/icons';
+import ColorCMP from '../colorcmp/ColorCMP';
 const type = "DraggableBodyRow";
 
 const DraggableBodyRow = ({
@@ -165,18 +166,19 @@ const InitialLoad= async ()=>{
 
       console.log("Inside DragSort",item);
       item.confidence =  item.confidence.split(",");
-      item.data_drift =  item.data_drift.split(",");
-      item.infer_time =  item.infer_time.split(",");
-      item.uptime =  item.uptime.split(",");
+      item.data_drift =  item.datadraft.split(",");
+      item.infer_time =  item.infertime.split(",");
+      item.uptime =  item.mtsuptime.split(",");
+      item.date =  item.TIMESTAMP.split(",");
       values.model = item.model;
-      values.num_instances = item.num_instances;
-      values.health = item.health;
+      values.num_instances = item.numinstances;
+      values.health = <ColorCMP col={item.health}/>;
       values.drift = <Drift driftData={item.drift}/>;
-      values.needs_training = item.needs_training;
-      values.confidence = <ConfidencePlot confidenceData={item.confidence}/>;
-      values.data_drift = <DataDriftPlot dataDriftData={item.data_drift}/>;
-      values.infer_time = <InferTimePlot infer_timeData={item.infer_time}/>;
-      values.uptime = <UptimePlot uptimeData={item.uptime}/>;
+      values.needs_training = item.needstraining == "Yes" ? <CheckCircleFilled style={{color:'red',fontSize:"20px"}}/> : <CloseCircleFilled style={{color:'green',fontSize:"20px"}}/>;
+      values.confidence = <ConfidencePlot confidenceData={item.confidence} date={item.date} />;
+      values.data_drift = <DataDriftPlot dataDriftData={item.data_drift} date={item.date}/>;
+      values.infer_time = <InferTimePlot infer_timeData={item.infer_time} date={item.date}/>;
+      values.uptime = <UptimePlot uptimeData={item.uptime} date={item.date}/>;
       draft.push(values)
     })
 
