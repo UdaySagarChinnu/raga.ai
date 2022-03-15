@@ -17,11 +17,13 @@ import VideoPlayer from '../../../videoplayer/VideoPlayer';
 import Matrix from '../../../confusionmatrix/ConfusionMatrix';
 import axios from 'axios';
 import {GetMainTableData,GetFrameCount,GetLabelCount,GetAnamolyCount} from "../../../../services/Service"
+import {  message } from 'antd';
+import { globalUri } from '../../../../app.config';
 
 function IssueMessage() {
 
   const [show,setShow] = useState(false);
-
+  const [videoLink,setVideoLink] = useState({});
   const confusionMatrix = [
     [0.69, 0.02, 0.04, 0.06, 0.01, 0.14, 0.04],
     [0.03, 0.70, 0.06, 0.02, 0.07, 0.06, 0.06],
@@ -39,9 +41,29 @@ function IssueMessage() {
   const [frame,setFrameCount] = useState([])
   const [labe,setLabelCount] = useState([])
   const [anamol,setAnamoly] = useState([])
-
+  const [Id,setId] = useState([])
+  
+  const [imageIdnumber,setImageIdnumber] = useState(0);
+  
+  //let idNumber = 0;
   const onHide = ()=>{
     setShow(false);
+    
+  }
+
+  const imgData = (val)=>{   
+    setImageIdnumber(val);
+  }
+
+  const playVideo = () => {
+    axios.get(globalUri+"getVideoForImageSlider?image_id="+imageIdnumber)
+    .then((res) => {
+      let video = res.data.response[0]
+      setVideoLink(video);
+    })
+    .catch((error)=>{
+        message.error(error.message);
+    })
   }
 
   useEffect(async()=>{
@@ -53,7 +75,7 @@ function IssueMessage() {
     // setLabelCount(labelCount);
     // let anamolycount = await GetAnamolyCount("yolov1");
     // setAnamoly(anamolycount);
-  },[])
+  },[imageIdnumber])
 
   return (
     <>
@@ -315,13 +337,13 @@ function IssueMessage() {
                     <Row className="mt-4 mb-5">
                        <Col xs={12} sm={12} md={2}></Col>
                         <Col xs={12} sm={12} md={3} >
-                          <Form.Range  className="mt-5"></Form.Range>
+                          {/* <Form.Range  className="mt-5"></Form.Range> */}
                         </Col>
                     </Row>
                     <Row className="mt-4 mb-5">
                        <Col xs={12} sm={12} md={1}></Col>
                         <Col xs={12} sm={12} md={5}>
-                              <ImageBrowser/>
+                              <ImageBrowser show={(id)=>{imgData(id)}}/>
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <Row>
@@ -336,10 +358,10 @@ function IssueMessage() {
                           </Row>
                           <Row className="text-center">
                             <Col>
-                               <Button variant="secondary" onClick={() => setShow(true)}  className="mt-3">Play Video</Button>
+                               <Button variant="secondary" onClick={() => {setShow(true);playVideo()}}  className="mt-3">Play Video</Button>
                             </Col>
                           </Row>
-                              <ModalPopup show={show} onHide={onHide} pop={<VideoPlayer/>}/>
+                              <ModalPopup show={show} onHide={onHide} pop={<VideoPlayer src={videoLink} />} />
                         </Col>
                     </Row>
             </Col>

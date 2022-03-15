@@ -12,7 +12,7 @@ const Drift = (props) => {
     radius: 80,
     range: {
       ticks: [0, 1 / 3, 2 / 3, 1],
-      color: ['#FAAD14','#30BF78','#F4664A',  ],
+      color: ['#30BF78','#FAAD14','#F4664A'],
     },
     indicator: {
       pointer: {

@@ -9,23 +9,30 @@ const UptimePlot = (props) => {
   let count = 0;
   const [data,setData] = useState([])
   const InitialLoad = ()=>{
-    let i = new Date().getDate();
-    i=parseInt(i);
-    props.uptimeData.forEach((item)=>{
+    // let i = new Date().getDate();
+    // i=parseInt(i);
+    // i= i-5;
+    for(let i=0;i<props.uptimeData.length;i++){
       let values = { type: "",value: ""};
-      if(i==14){
-        values.type= 14;
-        i--;
-      }
-      else{
-        
-        values.type= i;
-        i--;
-        
-      }
-      values.value=item;
+      values.type = new Date(props.date[i]).getDate();
+      values.value = props.uptimeData[i];
       data1.push(values);
-    })
+    }
+    // props.uptimeData.forEach((item)=>{
+    //   let values = { type: "",value: ""};
+    //   if(i==14){
+    //     values.type= 14;
+    //     i++;
+    //   }
+    //   else{
+        
+    //     values.type= i;
+    //     i++;
+        
+    //   }
+    //   values.value=item;
+    //   data1.push(values);
+    // })
     setData(data1);
   }
   useEffect(()=>{

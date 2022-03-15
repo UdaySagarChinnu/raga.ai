@@ -10,29 +10,34 @@ const ConfidencePlot = (props) => {
   const brandColor = '#5B8FF9';
  
   const InitialLoad = ()=>{
-    console.log(props.confidenceData);
     //let values = { type: "",value: ""};
     //let draftData = [];
-    let i = new Date().getDate();
-    i=parseInt(i);
-    props.confidenceData.forEach((item)=>{
+    // let i = new Date().getDate();
+    // i=parseInt(i);
+    // i= i-5;
+    for(let i=0;i<props.confidenceData.length;i++){
       let values = { type: "",value: ""};
-      if(i==14){
-        values.type= 14;
-        i--;
-      }
-      else{
-        
-        values.type= i;
-        i--;
-        
-      }
-      
-      values.value=item;
-
+      values.type = new Date(props.date[i]).getDate();
+      values.value = props.confidenceData[i];
       data1.push(values);
-    })
-    console.log("Confidence IN",props.confidenceData);
+    }
+    // props.confidenceData.forEach((item)=>{
+    //   let values = { type: "",value: ""};
+    //   if(i==14){
+    //     values.type= 14;
+    //     i++;
+    //   }
+    //   else{
+        
+    //     values.type= i;
+    //     i++;
+        
+    //   }
+      
+    //   values.value=item;
+
+    //   data1.push(values);
+    // })
     setData(data1);
   }
   useEffect(()=>{

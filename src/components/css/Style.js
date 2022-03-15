@@ -7,4 +7,7 @@ export const AppWrapper = styled.div`
   .noborder{
     border:0px !important;
   }
+  .ant-table-cell{
+    text-align:center !important;
+  }
 `;

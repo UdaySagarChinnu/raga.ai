@@ -9,23 +9,30 @@ const DataDriftPlot = (props) => {
   const brandColor = '#5B8FF9';
   let count = 0;
   const InitialLoad = ()=>{
-    let i = new Date().getDate();
-    i=parseInt(i);
-    props.dataDriftData.forEach((item)=>{
+    // let i = new Date().getDate();
+    // i=parseInt(i);
+    // i= i-5;
+    for(let i=0;i<props.dataDriftData.length;i++){
       let values = { type: "",value: ""};
-      if(i==14){
-        values.type= 14;
-        i--;
-      }
-      else{
-        
-        values.type= i;
-        i--;
-        
-      }
-      values.value=item;
+      values.type = new Date(props.date[i]).getDate();
+      values.value = props.dataDriftData[i];
       data1.push(values);
-    })
+    }
+    // props.dataDriftData.forEach((item)=>{
+    //   let values = { type: "",value: ""};
+    //   if(i==14){
+    //     values.type= 14;
+    //     i++;
+    //   }
+    //   else{
+        
+    //     values.type= i;
+    //     i++;
+        
+    //   }
+    //   values.value=item;
+    //   data1.push(values);
+    // })
     setData(data1);
   }
 
