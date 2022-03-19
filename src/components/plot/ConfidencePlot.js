@@ -17,7 +17,7 @@ const ConfidencePlot = (props) => {
     // i= i-5;
     for(let i=0;i<props.confidenceData.length;i++){
       let values = { type: "",value: ""};
-      values.type = new Date(props.date[i]).getDate();
+      values.type = props.date[i];
       values.value = props.confidenceData[i];
       data1.push(values);
     }
@@ -45,7 +45,7 @@ const ConfidencePlot = (props) => {
       InitialLoad();
       count++;
     }
-  },[])
+  },[props])
   const config = {
     data,
     xField: 'type',

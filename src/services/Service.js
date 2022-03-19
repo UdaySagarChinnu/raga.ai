@@ -120,9 +120,10 @@ export const GetAnamolyCount = (key) => {
     })
 }
 
-export const GetSummary = (key) => {
+export const GetSummary = (key=7) => {
+    console.log("inside service :",key)
     let data = [] ;
-    return axios.get(globalUri+"plotSummaryGraph")
+    return axios.get(globalUri+"plotSummaryGraph?date="+key)
     .then((res) => {
         data = res.data.response;
         return data;

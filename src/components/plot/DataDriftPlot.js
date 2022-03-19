@@ -9,12 +9,9 @@ const DataDriftPlot = (props) => {
   const brandColor = '#5B8FF9';
   let count = 0;
   const InitialLoad = ()=>{
-    // let i = new Date().getDate();
-    // i=parseInt(i);
-    // i= i-5;
     for(let i=0;i<props.dataDriftData.length;i++){
       let values = { type: "",value: ""};
-      values.type = new Date(props.date[i]).getDate();
+      values.type = props.date[i];
       values.value = props.dataDriftData[i];
       data1.push(values);
     }
@@ -41,7 +38,7 @@ const DataDriftPlot = (props) => {
         InitialLoad();
         count++;
       }
-  },[])
+  },[props])
   const config = {
     data,
     xField: 'type',

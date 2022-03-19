@@ -9,15 +9,15 @@ import Overlay from "react-bootstrap/Overlay";
 // import Drift from "../../drift/Drift.js";
 import DragSortingTable from '../../table/DragSortingTable';
 import {StyledCommon} from '../../shared/common/Common';
-
+import { GetSummary } from "../../../services/Service";
 
 
 function Dashboard1() {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const [accu,setAccurancy] = useState([]);
-  const [summaryData,setSummaryData] = useState([]);
-
+  const [summaryData,setSummaryData] = useState({});
+  const [numberOfDays,setNumberOfDays] = useState(7);
   const data = [
     {
       key: "1",
@@ -44,14 +44,11 @@ function Dashboard1() {
       tags: ["cool", "teacher"],
     },
   ];
-  const fetchData = useCallback(async()=>{
-    return 
-    
-  })
+
 
   useEffect(async ()=>{
-   
-  },[])
+    
+  },[numberOfDays])
   return (
     <>
     <StyledCommon.AppWrapper>
@@ -75,12 +72,14 @@ function Dashboard1() {
                   <Button variant="secondary">Save My View</Button>
                 </Col>
                 <Col xs={12} sm={12} md={4}>
-                  <Form.Select aria-label="Default select example">
-                    <option>Quick Select</option>
-                    <option value="1">Last 1 Hr</option>
-                    <option value="2">Today</option>
-                    <option value="3">Last 7 days</option>
-                    <option value="4">Last 30 days</option>
+                  <Form.Select aria-label="Default select example" onChange={(e)=>{
+                    setNumberOfDays(parseInt(e.target.value));
+                    console.log(numberOfDays)}}>
+                    <option value="">Quick Select</option>
+                    <option value={"1"} style={{backgroundColor:'lightgrey'}} disabled>Last 1 Hr</option>
+                    <option value={"0"}>Today</option>
+                    <option value={"7"}>Last 7 days</option>
+                    <option value={"30"} style={{backgroundColor:'lightgrey'}} disabled>Last 30 days</option>
                   </Form.Select>
                 </Col>
                 <Col xs={12} sm={12} md={1}></Col>
@@ -153,7 +152,7 @@ function Dashboard1() {
               <Row style={{ marginTop: "60px" }}>
                 <Col xs={12} sm={12} md={2}></Col>
                 <Col xs={12} sm={12} md={8}>
-                  <DragSortingTable />
+                  <DragSortingTable numDays={numberOfDays}/>
                 </Col>
                 <Col className="p-5" xs={12} sm={12} md={1}>
                   {/* <CircularProgressBar /> */}

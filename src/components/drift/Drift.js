@@ -4,9 +4,10 @@ import { Gauge } from '@ant-design/plots';
 
 const Drift = (props) => {
 
-// useEffect(()=>{
-//   props.driftData
-// })
+useEffect(()=>{
+ 
+},[props])
+
   const config = {
     percent:  props.driftData,
     radius: 80,

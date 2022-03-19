@@ -15,7 +15,7 @@ const InferTimePlot = (props) => {
     // i= i-5;
     for(let i=0;i<props.infer_timeData.length;i++){
       let values = { type: "",value: ""};
-      values.type = new Date(props.date[i]).getDate();
+      values.type = props.date[i];
       values.value = props.infer_timeData[i];
       data1.push(values);
     }
@@ -42,7 +42,7 @@ const InferTimePlot = (props) => {
         InitialLoad();
         count++;
       }
-  },[])
+  },[props])
   const config = {
     data,
     xField: 'type',

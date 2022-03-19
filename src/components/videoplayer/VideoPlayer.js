@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReactPlayer from 'react-player/lazy'
+
 
 function VideoPlayer(props){
     useEffect(()=>{
@@ -7,7 +7,12 @@ function VideoPlayer(props){
     })
     return(
         <>
-            <ReactPlayer url={props.src.video} playing={true} controls={true} width={'100%'}/>
+            
+            <video width="100%" height="100%" controls muted>
+                <source src={props.src.video} type="video/mp4"/>
+                <source src="movie.ogg" type="video/ogg" />
+                Your browser does not support the video tag.
+             </video>
 
         </>
     )

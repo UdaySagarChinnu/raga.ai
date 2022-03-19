@@ -331,7 +331,7 @@ function IssueMessage() {
                       </Col>
                       <Col xs={12} sm={12} md={3} style={{border:'1px solid lightgrey',borderRadius:'5px', padding:'10px',margin:'20px 20px 5px 5px'}}>
                           <ThirdGraph />
-                          Anomoly Count
+                          Anamoly Count
                       </Col>
                     </Row>
                     <Row className="mt-4 mb-5">

@@ -14,7 +14,7 @@ const UptimePlot = (props) => {
     // i= i-5;
     for(let i=0;i<props.uptimeData.length;i++){
       let values = { type: "",value: ""};
-      values.type = new Date(props.date[i]).getDate();
+      values.type = props.date[i];
       values.value = props.uptimeData[i];
       data1.push(values);
     }
@@ -40,7 +40,7 @@ const UptimePlot = (props) => {
       InitialLoad();
       count++;
     }
-  },[])
+  },[props])
   const config = {
     data,
     xField: 'type',

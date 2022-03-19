@@ -13,6 +13,7 @@ import UptimePlot from "../plot/UptimePlot"
 import { GetSummary } from "../../services/Service";
 import { CloseCircleFilled, CheckCircleFilled } from '@ant-design/icons';
 import ColorCMP from '../colorcmp/ColorCMP';
+import "./DragSortingTable.css"
 const type = "DraggableBodyRow";
 
 const DraggableBodyRow = ({
@@ -61,53 +62,62 @@ const DraggableBodyRow = ({
 
 const columns = [
   {
-    title: "Model",
-    dataIndex: "model",
-    key: "model"
+    title: "model_name",
+    dataIndex: "model_name",
+    render: text => <a href="/IssueMessage">{text}</a>,
   },
   {
     title: "Number of Instances",
     dataIndex: "num_instances",
-    key: "num_instances"
+   
   },
   {
     title: "Overall Health",
     dataIndex: "health",
-    key: "health"
+   
   },
   {
     title: "Drift",
     dataIndex: "drift",
-    key: "drift"
+    
   },
   {
     title: "Need Retrainng",
-    dataIndex: "needs_training",
-    key: "needs_training"
+    dataIndex: "needs_retraining",
+    
   },
   {
     title: "Confidence Score",
     dataIndex: "confidence",
-    key: "confidence"
+    
   },
   {
     title: "Inference Time",
     dataIndex: "infer_time",
-    key: "infer_time"
+    
   },
   {
-    title: "Up Time/Day",
+    title: "Up Time",
     dataIndex: "uptime",
-    key: "uptime"
+    
   },
   {
     title: "Data Drift",
     dataIndex: "data_drift",
-    key: "data_drift"
+    
   },
 ];
-
-const DragSortingTable = () => {
+// const rowSelection = {
+//   // onChange: (selectedRowKeys, selectedRows) => {
+//   //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+//   // },
+//   getCheckboxProps: (record) => ({
+//     disabled: record.name === 'Disabled User',
+//     // Column configuration not to be checked
+//     name: record.name,
+//   }),
+// };
+const DragSortingTable = (props) => {
   const [data, setData] = useState([]);
   let draft = [];
   const components = {
@@ -115,7 +125,7 @@ const DragSortingTable = () => {
       row: DraggableBodyRow
     }
   };
-
+  const [summaryData,setSummaryData] = useState([])
   const moveRow = useCallback(
     (dragIndex, hoverIndex) => {
       const dragRow = data[dragIndex];
@@ -130,87 +140,85 @@ const DragSortingTable = () => {
     },
     [data]
   );
+
+  let summary =[]
 let count = 0;
-const InitialLoad= async ()=>{
-  var summary = await GetSummary();
-  console.log("inside dashboard")
-    console.log(summary);
+
+
+const InitialLoad = async ()=>{
+ console.log("propsnumDays",props.numDays);
+  var summary = await GetSummary(props.numDays);
+  //console.log("inside dashboard")
+  setSummaryData(summary)
+    console.log("I am summary :",summary);
    
-    console.log("drag table");
-    console.log("summary",summary);
+   // console.log("drag table");
+    console.log("props-summary",props.numDays);
   
-    // let values = {
-    //   model: "1",
-    //   num_instances:"",
-    //   health: 32,
-    //   drift:"",
-    //   needs_training: "",
-    //   confidence:"",
-    //   data_drift:"",
-    //   infer_time:"",
-    //   uptime:""
-    // }
-    summary.forEach((item,index)=>{
+  //  let summary = props.summary;
+
+  summary.forEach((item,index)=>{
       let values = {
-        model: "",
+        model_name: "",
         num_instances:"",
         health: "",
         drift:"",
-        needs_training: "",
+        needs_retraining: "",
         confidence:"",
         data_drift:"",
         infer_time:"",
-        uptime:""
+        uptime:"",
+        key:"",
+        enabled:false
       }
-      values.key = index
-
-      console.log("Inside DragSort",item);
-      item.confidence =  item.confidence.split(",");
-      item.data_drift =  item.datadraft.split(",");
-      item.infer_time =  item.infertime.split(",");
-      item.uptime =  item.mtsuptime.split(",");
-      item.date =  item.TIMESTAMP.split(",");
-      values.model = item.model;
-      values.num_instances = item.numinstances;
+      values.key = index+1;   
+      if(values.key == 2){
+        values.enabled=true;
+      } 
+      values.model_name = item.model_name;
+      values.num_instances = item.num_instances;
       values.health = <ColorCMP col={item.health}/>;
       values.drift = <Drift driftData={item.drift}/>;
-      values.needs_training = item.needstraining == "Yes" ? <CheckCircleFilled style={{color:'red',fontSize:"20px"}}/> : <CloseCircleFilled style={{color:'green',fontSize:"20px"}}/>;
-      values.confidence = <ConfidencePlot confidenceData={item.confidence} date={item.date} />;
-      values.data_drift = <DataDriftPlot dataDriftData={item.data_drift} date={item.date}/>;
-      values.infer_time = <InferTimePlot infer_timeData={item.infer_time} date={item.date}/>;
-      values.uptime = <UptimePlot uptimeData={item.uptime} date={item.date}/>;
+      values.needs_retraining = values.needs_retraining = (item.needs_retraining == "0") ? <CheckCircleFilled style={{color:'red',fontSize:"20px"}}/> : <CloseCircleFilled style={{color:'green',fontSize:"20px"}}/>;
+      if(item.confidence != null && item.confidence != undefined)
+      {
+        values.confidence = <ConfidencePlot confidenceData={item.confidence} date={item.timestamp} />;
+      }
+      if(item.data_drift != null && item.data_drift != undefined)
+      {
+        values.data_drift = <DataDriftPlot dataDriftData={item.data_drift} date={item.timestamp}/>;
+      }
+      if(item.infer_time != null && item.infer_time != undefined)
+      {
+        values.infer_time = <InferTimePlot infer_timeData={item.infer_time} date={item.timestamp}/>;
+      }
+      if(item.uptime != null && item.uptime != undefined)
+      {
+        values.uptime = <UptimePlot uptimeData={item.uptime} date={item.timestamp}/>;
+      }
       draft.push(values)
-    })
+   })
 
-    //console.log("newarray",newarray);
-
-    console.log("after dataarray",draft)
     setData(draft);
-    console.log("data",data);
 }
 
-const dataFormate = ()=>{
-  InitialLoad()
 
-}
-
-  useEffect(async()=>{
-    if(count == 0){
+useEffect(async()=>{
       InitialLoad();
-      count++;
-    }
-  },[])
+  },[props])
 
   return (
     <DndProvider backend={HTML5Backend}>
       <Table
-        columns={columns}
+        
         dataSource={data}
-        components={components}
+       // components={components}
         onRow={(record, index) => ({
           index,
           moveRow
         })}
+        rowClassName={record => !record.enabled && "disabled-row"}
+        columns={columns}
       />
     </DndProvider>
   );

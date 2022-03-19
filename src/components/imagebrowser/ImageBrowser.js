@@ -29,7 +29,7 @@ componentDidMount(){
         let imageTagData = imageData.map((item) => {
           return (
             <>
-              <img src={item.image} style={{width:'100%',height:'450px'}}  className="sliderimg" alt="" />
+              <img src={item.images} style={{width:'100%',height:'450px'}}  className="sliderimg" alt="" />
             </>
           );
         })
